@@ -1,8 +1,6 @@
-package org.example.cradlehigh.articles;
+package org.example.cradlehigh.model;
 
-import org.example.cradlehigh.Base;
 import org.example.cradlehigh.db.Db;
-import org.example.cradlehigh.users.UserType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +59,7 @@ public class Course extends Base {
     }
 
     @Override
-    protected String setId(UserType category) {
+    protected String setId() {
         index++;
         return "CRSE-" + index;
     }

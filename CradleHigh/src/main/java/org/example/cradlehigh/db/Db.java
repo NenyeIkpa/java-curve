@@ -1,11 +1,10 @@
 package org.example.cradlehigh.db;
 
-import org.example.cradlehigh.articles.ClassLevel;
-import org.example.cradlehigh.articles.Course;
-import org.example.cradlehigh.users.Applicant;
-import org.example.cradlehigh.users.Student;
-import org.example.cradlehigh.users.UserType;
-import org.example.cradlehigh.users.staff.academic.Teacher;
+import org.example.cradlehigh.model.ClassLevel;
+import org.example.cradlehigh.model.Course;
+import org.example.cradlehigh.model.users.Applicant;
+import org.example.cradlehigh.model.users.Student;
+import org.example.cradlehigh.model.users.staff.academic.Teacher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,28 +23,8 @@ import java.util.List;
 
     public Db() {
         applicants = new ArrayList<>();
-        Applicant a1 = new Applicant("Mary", "Newman", 12, 'F', "mary.newman@gmail.com", "+2348037772525", "JSS2", UserType.APPLICANT);
-        Applicant a2 = new Applicant("Hauwa", "Decker", 16, 'M', "hauwa.deckern@gmail.com", "+234803777210105", "SSS2", UserType.APPLICANT);
-        Applicant a3 = new Applicant("Uche", "Wu", 9, 'M', "uche.wu@gmail.com", "+2348037772525", "JSS1", UserType.APPLICANT);
-        Applicant a4 = new Applicant("Yemi", "Wu", 18, 'M', "yemi.ade@gmail.com", "+2348037772525", "SS3", UserType.APPLICANT);
-
-        applicants.add(a1);
-        applicants.add(a2);
-        applicants.add(a3);
-        applicants.add(a4);
-
         students = new ArrayList<>();
         teachers = new ArrayList<>();
-//        Teacher t1 = new Teacher("Martha", "Newman",32,'F',"martha.newman@gmail.com", "+2348037772525", UserType.TEACHER);
-//        Teacher t2 = new Teacher("John", "Decker",30,'M',"john.deckern@gmail.com", "+234803777210105", UserType.TEACHER);
-//        Teacher t3 = new Teacher("Jack", "Wu",34,'M',"jack.wu@gmail.com", "+2348037772525", UserType.TEACHER);
-//        Teacher t4 = new Teacher("Andie", "Jones",26,'F',"andie.jones@gmail.com", "+2348037755243", UserType.TEACHER);
-//        Teacher t5 = new Teacher("Queen", "Bee",28,'F',"queen.bee@gmail.com", "+2348036662743", UserType.TEACHER);
-//        teachers.add(t1);
-//        teachers.add(t2);
-//        teachers.add(t3);
-//        teachers.add(t4);
-//        teachers.add(t5);
 
         courses = new ArrayList<>();
         courses.add(new Course("English", "ALL"));
@@ -77,6 +56,16 @@ import java.util.List;
         applicants.add(applicant);
     }
 
+     public void printApplicant(Applicant applicant) {
+         System.out.println(applicant);
+     }
+     public void printApplicants() {
+
+         for (Applicant applicant : applicants) {
+             System.out.println(applicant.toString());
+         }
+     }
+
     public List<Student> getStudents() {
         return students;
     }
@@ -84,6 +73,19 @@ import java.util.List;
     public void setStudent(Student student) {
         students.add(student);
     }
+
+     public void printStudent(Student student) {
+         System.out.println(student);
+     }
+     public void printStudents() {
+        if (students.isEmpty()) {
+            System.out.println("No students at this time");
+            return;
+        }
+         for(Student s: students) {
+             System.out.println(s);
+         }
+     }
 
     public List<Teacher> getTeachers() {
         return teachers;
@@ -93,6 +95,17 @@ import java.util.List;
         teachers.add(teacher);
     }
 
+     public void printTeacher(Teacher teacher) {
+         System.out.println(teacher);
+     }
+
+     public void printTeachers() {
+
+         for(Teacher t: teachers) {
+             System.out.println(t);
+         }
+     }
+
     public List<Course> getCourses() {
         return courses;
     }
@@ -101,6 +114,13 @@ import java.util.List;
         courses.add(course);
     }
 
+     public void printCourses() {
+
+         for(Course c: courses) {
+             System.out.println(c);
+         }
+     }
+
     public List<ClassLevel> getClassLevels() {
         return classLevels;
     }
@@ -108,4 +128,11 @@ import java.util.List;
     public void setClassLevels(ClassLevel classLevel) {
         classLevels.add(classLevel);
     }
+
+     public void printClassLevels() {
+
+         for(ClassLevel c: classLevels) {
+             System.out.println(c);
+         }
+     }
 }

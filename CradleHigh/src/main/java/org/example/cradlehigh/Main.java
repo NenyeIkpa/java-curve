@@ -1,37 +1,23 @@
 package org.example.cradlehigh;
 
 import org.example.cradlehigh.db.Db;
-import org.example.cradlehigh.users.Applicant;
-import org.example.cradlehigh.users.Student;
-import org.example.cradlehigh.users.UserType;
-import org.example.cradlehigh.users.staff.academic.Principal;
-import org.example.cradlehigh.users.staff.academic.Teacher;
+import org.example.cradlehigh.model.users.Applicant;
+import org.example.cradlehigh.model.users.Student;
+import org.example.cradlehigh.model.users.staff.academic.Principal;
+import org.example.cradlehigh.model.users.staff.academic.Teacher;
 
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
+   public static Db db = new Db();
+   static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         System.out.println("Hello world!");
 
-        Principal principal = new Principal("Daisy", "Young", 42, 'F', "daisy.young@gmail.com", "+2348038889292", UserType.PRINCIPAL);
-
-        Teacher t1 = new Teacher("Martha", "Newman",32,'F',"martha.newman@gmail.com", "+2348037772525", UserType.TEACHER);
-        Teacher t2 = new Teacher("John", "Decker",30,'M',"john.deckern@gmail.com", "+234803777210105", UserType.TEACHER);
-        Teacher t3 = new Teacher("Jack", "Wu",34,'M',"jack.wu@gmail.com", "+2348037772525", UserType.TEACHER);
-        Teacher t4 = new Teacher("Andie", "Jones",26,'F',"andie.jones@gmail.com", "+2348037755243", UserType.TEACHER);
-        Teacher t5 = new Teacher("Queen", "Bee",28,'F',"queen.bee@gmail.com", "+2348036662743", UserType.TEACHER);
-        Db db = new Db();
-
-        db.setTeacher(t1);
-        db.setTeacher(t2);
-        db.setTeacher(t3);
-        db.setTeacher(t4);
-        db.setTeacher(t5);
+        Principal principal = new Principal("Daisy", "Young", 42, 'F', "daisy.young@gmail.com", "+2348038889292");
 
 
-
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("********  Welcome to Cradle High  ********8");
             System.out.println("To apply, press 1\nTo login, press 2\nTo exit, press 99");
@@ -41,38 +27,35 @@ public class Main {
                 System.out.println("1. Student\n2. Teacher\n0. Admin");
                 int loginOption = scanner.nextInt();
                 scanner.nextLine();
-                if (loginOption == 1 ) {
+                if (loginOption == 1) {
                     System.out.println("Enter student id");
-                    String id = scanner.nextLine();
-                    for (Student s: principal.getStudents()) {
-                        if (s.getId() == id) {
+                    String sId = scanner.nextLine();
+                    for (Student s : db.getStudents()) {
+                        if (Objects.equals(s.getId(), sId)) {
                             System.out.println("Please enter password:");
                             String passwd = scanner.nextLine();
                             if (Objects.equals(passwd, "STUDENT")) {
-                                principal.printStudent(id);
+                                System.out.println(s);
                             }
                         } else {
                             System.out.println("This ID does not exist.");
-                            continue;
                         }
                     }
                 } else if (loginOption == 2) {
-                    principal.printTeachers();
-//                    System.out.println("Enter teacher id");
-//                    String id = scanner.nextLine();
-//                    for (Teacher t: principal.getTeachers()) {
-//                        System.out.println(t);
-//                        if (Objects.equals(t.getId(), id)) {
-//                            System.out.println("Please enter password:");
-//                            String passwd = scanner.nextLine();
-//                            if (Objects.equals(passwd, "TEACHER")) {
-//                                principal.printTeacher(id);
-//                            }
-//                        } else {
-//                            System.out.println("This ID does not exist.");
-//                            continue;
-//                        }
-//                    }
+                    System.out.println("Enter teacher id");
+                    String id = scanner.nextLine();
+                    for (Teacher t : db.getTeachers()) {
+                        System.out.println(t);
+                        if (Objects.equals(t.getId(), id)) {
+                            System.out.println("Please enter password:");
+                            String passwd = scanner.nextLine();
+                            if (Objects.equals(passwd, "TEACHER")) {
+                                System.out.println(t);
+                            }
+                        } else {
+                            System.out.println("This ID does not exist.");
+                        }
+                    }
                 } else if (loginOption == 0) {
                     System.out.println("Please enter password:");
                     String passwd = scanner.nextLine();
@@ -81,22 +64,20 @@ public class Main {
                         // System.out.println("Hello World!");
                     } else {
                         System.out.println("Wrong password");
-                        continue;
                     }
                 }
             } else if (selection == 99) {
+                scanner.close();
                 break;
-            }else if (selection == 1) {
-               principal.acceptApplication(applyToCradleHigh());
-                continue;
-
+            } else if (selection == 1) {
+                db.setApplicant(applyToCradleHigh());
             }
         }
     }
 
     public static Applicant applyToCradleHigh() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your first name:");
+        scanner.nextLine();
         String firstName = scanner.nextLine();
         System.out.println("Enter your last name:");
         String lastName = scanner.nextLine();
@@ -113,70 +94,41 @@ public class Main {
         String email = scanner.nextLine();
         System.out.println("Class applied for:");
         String classApplied = scanner.nextLine();
-        Applicant a = new Applicant(firstName, lastName, age, gender, phone, email, classApplied, UserType.APPLICANT);
+        Applicant a = new Applicant(firstName, lastName, age, gender, email, phone, classApplied);
+        System.out.println(a);
+        System.out.println("Application received!");
         return a;
     }
 
 
     public static void actAsAdmin(Principal principal) {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("1. View students\n2. View applicants\n3. Admit Students\n4. Expel student");
+            System.out.println("1. View students\n2. View applicants\n3. Admit Students\n4. Expel student\n99. Exit");
             int choice = scanner.nextInt();
-                if (choice == 1) {
-                    principal.getStudents();
-                    System.out.println("To continue, press 1\nTo exit, press 0");
-                    int option = scanner.nextInt();
-                    if (option == 0) {
-                        break;
-                    } else {
-                        continue;
-                    }
-                } else if (choice == 2) {
-                    principal.printApplicants();
-                    System.out.println("To continue, press 1\nTo exit, press 0");
-                    int option = scanner.nextInt();
-                    if (option == 0) {
-                        break;
-                    } else {
-                        continue;
-                    }
-                } else if (choice == 3) {
-                    principal.admitStudent(principal.getApplicants());
-                    System.out.println("Rejected Applicants:");
-                    principal.getRejectedApplicants();
-                    System.out.println("Students:");
-                    principal.getStudents();
-                    System.out.println("To continue, press 1\nTo exit, press 0");
-                    int option = scanner.nextInt();
-                    if (option == 0) {
-                        break;
-                    } else {
-                        continue;
-                    }
-                } else if (choice == 4) {
-                    System.out.println("Enter student's first name");
-                    scanner.nextLine();
-                    String firstname = scanner.nextLine();
-                    System.out.println("Enter student's last name");
-                    String lastname = scanner.nextLine();
-                    String id = principal.getStudent(firstname, lastname);
-                    if (!Objects.equals(id, null)) {
-                        principal.expelStudent(id);
-                        principal.getStudents();
-                    }
-                    System.out.println("To continue, press 1\nTo exit, press 0");
-                    int option = scanner.nextInt();
-                    if (option == 0) {
-                        break;
-                    } else {
-                        continue;
-                    }
-                } else {
-                    System.out.println("Wrong input. Try again!");
-                    continue;
+            scanner.nextLine();
+            if (choice == 1) {
+                db.printStudents();
+            } else if (choice == 2) {
+                db.printApplicants();
+            } else if (choice == 3) {
+                for (Applicant a : db.getApplicants()) {
+                    principal.admitStudent(a);
                 }
+                System.out.println("Rejected Applicants:");
+                principal.getRejectedApplicants();
+                System.out.println("Students:");
+                db.printStudents();
+            } else if (choice == 4) {
+                System.out.println("Enter student's id");
+                String id = scanner.nextLine();
+                if (!Objects.equals(id, null)) {
+                    principal.expelStudent(id);
+                }
+            } else if (choice == 99) {
+                return;
+            } else {
+                System.out.println("Wrong input. Try again!");
             }
-        scanner.close();
+        }
     }
 }

@@ -1,6 +1,6 @@
-package org.example.cradlehigh.users;
+package org.example.cradlehigh.model.users;
 
-import org.example.cradlehigh.Base;
+import org.example.cradlehigh.model.Base;
 
 public abstract class User extends Base {
     private String firstName;
@@ -9,19 +9,15 @@ public abstract class User extends Base {
     private char gender;
     private String email;
     private String phoneNumber;
-    private Enum<UserType> category;
 
-    private int tchIndex;
-
-    public User(String firstName, String lastName, int age, char gender, String email, String phoneNumber, UserType category) {
+    public User(String firstName, String lastName, int age, char gender, String email, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.gender = gender;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.category = category;
-        this.id = setId(category);
+//        this.id = setId();
     }
 
     public String getFirstName() {
@@ -70,39 +66,17 @@ public abstract class User extends Base {
         this.phoneNumber = phoneNumber;
     }
 
-    public Enum<UserType> getCategory() {
-        return category;
-    }
-
-
-    public void setCategory(int type) {
-        switch (type) {
-            case 1: {
-                this.category = UserType.STUDENT;
-            }
-            case  2: {
-                this.category = UserType.TEACHER;
-            }
-            case 3: {
-                this.category = UserType.APPLICANT;
-            }
-            default: {
-                System.out.println("Wrong choice. Try again.");
-            }
-        }
-    }
 
     @Override
     public String toString() {
         return "User{" +
+                "id='" + id + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age='" + age + '\'' +
                 ", gender=" + gender +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", category=" + category +
-                ", id='" + id + '\'' +
                 ", createdAt='" + createdAt + '\'' +
                 '}';
     }

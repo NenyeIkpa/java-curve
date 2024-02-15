@@ -1,31 +1,28 @@
-package org.example.cradlehigh.users.staff.academic;
+package org.example.cradlehigh.model.users.staff.academic;
 
 import org.example.cradlehigh.db.Db;
-import org.example.cradlehigh.users.Student;
-import org.example.cradlehigh.users.TakeCourse;
-import org.example.cradlehigh.users.User;
-import org.example.cradlehigh.users.UserType;
+import org.example.cradlehigh.model.users.Student;
+import org.example.cradlehigh.service.TakeCourse;
+import org.example.cradlehigh.model.users.User;
 
 import java.util.List;
 
 public class Teacher extends User implements TakeCourse {
 
     private int index;
-    private String courseTaught;
+    private List<String> courseTaught;
     private String classAssigned;
     private boolean isHeadTeacher;
     private String classHeaded;
 
     private List<Student> students;
 
-    public String getCourseTaught() {
-        return courseTaught;
+    public void getCourseTaught() {
+        courseTaught.forEach(System.out::println);
     }
-
-    public void setCourseTaught(String courseTaught) {
-        this.courseTaught = courseTaught;
+    public void setCourseTaught(String courseName) {
+        courseTaught.add(courseName);
     }
-
     public boolean isHeadTeacher() {
         return isHeadTeacher;
     }
@@ -39,12 +36,12 @@ public class Teacher extends User implements TakeCourse {
     }
 
 
-    public Teacher(String firstName, String lastName, int age, char gender, String email, String phoneNumber, UserType category) {
-        super(firstName, lastName, age, gender, email, phoneNumber, category);
+    public Teacher(String firstName, String lastName, int age, char gender, String email, String phoneNumber) {
+        super(firstName, lastName, age, gender, email, phoneNumber);
     }
 
     @Override
-    protected String setId(UserType category) {
+    protected String setId() {
         index++;
         return "TCHR-" + index;
     }

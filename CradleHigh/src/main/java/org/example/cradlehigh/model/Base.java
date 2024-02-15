@@ -1,6 +1,4 @@
-package org.example.cradlehigh;
-
-import org.example.cradlehigh.users.UserType;
+package org.example.cradlehigh.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +27,6 @@ public abstract class Base {
          return updatedAt;
      }
 
-     protected abstract String setId(UserType category);
+     protected abstract String setId();
 
  }

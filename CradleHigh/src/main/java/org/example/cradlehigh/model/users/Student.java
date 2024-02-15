@@ -1,7 +1,8 @@
-package org.example.cradlehigh.users;
+package org.example.cradlehigh.model.users;
 
-import org.example.cradlehigh.articles.ClassLevel;
-import org.example.cradlehigh.articles.Course;
+import org.example.cradlehigh.model.ClassLevel;
+import org.example.cradlehigh.model.Course;
+import org.example.cradlehigh.service.TakeCourse;
 
 import java.util.List;
 
@@ -13,15 +14,15 @@ public class Student extends User implements TakeCourse {
     String[] coursesOffered;
 
 
-    public Student(String firstName, String lastName, int age, char gender, String email, String phoneNumber, String classLevel, UserType category) {
-        super(firstName, lastName, age, gender, email, phoneNumber, category);
+    public Student(String firstName, String lastName, int age, char gender, String email, String phoneNumber, String classLevel) {
+        super(firstName, lastName, age, gender, email, phoneNumber);
         this.classLevel = classLevel;
         courseIndex = -1;
-        coursesOffered = new String[5];
+        this.id = setId();
     }
 
     @Override
-    protected String setId(UserType category) {
+    protected String setId() {
         index++;
         return "STDN-" + index;
     }
@@ -52,7 +53,8 @@ public class Student extends User implements TakeCourse {
         System.out.println("I, " + getFirstName() + getLastName() + " have picked a course!");
     }
 
-    public void printStudent() {
-        System.out.println(super.toString() + this);
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

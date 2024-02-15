@@ -1,4 +1,4 @@
-package org.example.cradlehigh.users;
+package org.example.cradlehigh.service;
 
 public interface TakeCourse {
 
