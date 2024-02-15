@@ -37,10 +37,9 @@ public class Main {
                             if (Objects.equals(passwd, "STUDENT")) {
                                 System.out.println(s);
                             }
-                        } else {
-                            System.out.println("This ID does not exist.");
                         }
                     }
+                    System.out.println("This ID does not exist.");
                 } else if (loginOption == 2) {
                     System.out.println("Enter teacher id");
                     String id = scanner.nextLine();
@@ -52,10 +51,9 @@ public class Main {
                             if (Objects.equals(passwd, "TEACHER")) {
                                 System.out.println(t);
                             }
-                        } else {
-                            System.out.println("This ID does not exist.");
                         }
                     }
+                    System.out.println("This ID does not exist.");
                 } else if (loginOption == 0) {
                     System.out.println("Please enter password:");
                     String passwd = scanner.nextLine();
@@ -114,6 +112,7 @@ public class Main {
                 for (Applicant a : db.getApplicants()) {
                     principal.admitStudent(a);
                 }
+                db.getApplicants().clear();
                 System.out.println("Rejected Applicants:");
                 principal.getRejectedApplicants();
                 System.out.println("Students:");

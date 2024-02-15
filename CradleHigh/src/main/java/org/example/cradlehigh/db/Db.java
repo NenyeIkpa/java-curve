@@ -60,6 +60,10 @@ import java.util.List;
          System.out.println(applicant);
      }
      public void printApplicants() {
+         if (applicants.isEmpty()) {
+             System.out.println("No applicants at this time");
+             return;
+         }
 
          for (Applicant applicant : applicants) {
              System.out.println(applicant.toString());
