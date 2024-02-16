@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Teacher extends User implements TakeCourse {
 
-    private int index;
+    private static int index;
     private List<String> courseTaught;
     private String classAssigned;
     private boolean isHeadTeacher;
@@ -38,6 +38,7 @@ public class Teacher extends User implements TakeCourse {
 
     public Teacher(String firstName, String lastName, int age, char gender, String email, String phoneNumber) {
         super(firstName, lastName, age, gender, email, phoneNumber);
+        this.id = setId();
     }
 
     @Override

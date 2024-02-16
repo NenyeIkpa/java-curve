@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Course extends Base {
 
-    private int index;
+    private static int index;
     private String courseTitle;
     private String classLevel;
 
@@ -33,7 +33,9 @@ public class Course extends Base {
     }
 
     public void setClassLevel(String classLevel) {
+
         this.classLevel = classLevel;
+        this.id = setId();
     }
 
     public List<Course> getMandatory() {

@@ -71,7 +71,7 @@ public abstract class User extends Base {
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                "firstName='" + firstName + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age='" + age + '\'' +
                 ", gender=" + gender +

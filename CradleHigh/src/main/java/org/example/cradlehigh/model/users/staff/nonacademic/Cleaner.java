@@ -4,10 +4,11 @@ import org.example.cradlehigh.model.users.User;
 
 public class Cleaner extends User {
 
-    private int index;
+    private static int index;
 
     public Cleaner(String firstName, String lastName, int age, char gender, String email, String phoneNumber) {
         super(firstName, lastName, age, gender, email, phoneNumber);
+        this.id = setId();
     }
 
     @Override
